@@ -4,10 +4,12 @@ import set2 from './set2.js'
 import set3 from './set3.js'
 import set4 from './set4.js'
 import set5 from './set5.js'
+import set6 from './set6.js'
+import set7 from './set7.js'
 
 const sectionOf = block => (block.startsWith('V') ? 'GAP Verbal' : 'GAP Analytical')
 
-export const MOCK_SETS = [set1, set2, set3, set4, set5].map(s => ({
+export const MOCK_SETS = [set1, set2, set3, set4, set5, set6, set7].map(s => ({
   ...s,
   questions: s.questions.map(q => ({ section: sectionOf(q.block), ...q })),
 }))

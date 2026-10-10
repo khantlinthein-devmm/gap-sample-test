@@ -234,3 +234,7 @@ section.panel { padding: 18px; }
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; scroll-behavior: auto !important; }
 }
+
+/* difficulty badge on the test picker */
+.test-body h2 { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.tag.hard { background: var(--bad-soft); color: var(--bad); }

@@ -444,7 +444,7 @@ function TestPicker({ onStart }) {
             <article key={s.id} className="test-card">
               <div className="test-no">{String(i + 1)}</div>
               <div className="test-body">
-                <h2>{s.title}</h2>
+                <h2>{s.title.replace(/\s*\(hard\)$/i, '')}{s.level === 'hard' && <span className="tag hard">Hard</span>}</h2>
                 <p className="test-sub">Reading: {articleTitle(s)}</p>
                 <p className="test-best">{best ? <>Best score <b>{best.score}</b> / {best.max}</> : 'Not taken yet'}</p>
               </div>

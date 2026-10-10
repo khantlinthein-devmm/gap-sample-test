@@ -499,15 +499,16 @@ function MockTest() {
     clearInterval(timer.current)
     const tally = () => ({ c: 0, w: 0, b: 0 })
     const by = { 'GAP Verbal': tally(), 'GAP Analytical': tally(), Other: tally() }
-    const add = (sec, s, ans) => {
-      const t = by[sec] || by.Other
-      if (s === undefined) t.b++
-      else if (s === ans) t.c++
-      else t.w++
-    }
+    // Real GAP scoring: one point per question, −⅓ per wrong answer. A
+    // synonym/antonym question is one question: it scores only when both
+    // parts are right, and counts as wrong when either part is answered
+    // but the pair is not fully right.
     test.forEach((q, i) => {
-      add(q.section, answers[i], q.answer)
-      if (q.optionsB) add(q.section, answers[i + 'b'], q.answerB)
+      const t = by[q.section] || by.Other
+      const parts = q.optionsB ? [[answers[i], q.answer], [answers[i + 'b'], q.answerB]] : [[answers[i], q.answer]]
+      if (parts.every(([s]) => s === undefined)) t.b++
+      else if (parts.every(([s, a]) => s === a)) t.c++
+      else t.w++
     })
     const sum = Object.values(by).reduce((a, t) => ({ c: a.c + t.c, w: a.w + t.w, b: a.b + t.b }), tally())
     const total = sum.c + sum.w + sum.b
